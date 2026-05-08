@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Control Center</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-microchip"></i>
+                <span>CoreIoT</span>
+            </div>
+            <nav>
+                <a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> GPS Tracking</a>
+                <a href="#"><i class="fas fa-signal"></i> GSM Status</a>
+                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            </nav>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <h1>Device Overview</h1>
+                <div class="user-profile">
+                    <span class="status-indicator"></span>
+                    <p>System Online</p>
+                </div>
+            </header>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid">
+                <div class="card">
+                    <i class="fas fa-satellite"></i>
+                    <h3>GPS Coordinates</h3>
+                    <p class="data">20.2961° N, 85.8245° E</p>
+                    <span class="label">Updated 2m ago</span>
+                </div>
+                <div class="card">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <h3>GSM Signal</h3>
+                    <p class="data">-85 dBm</p>
+                    <div class="signal-bar"><div class="fill" style="width: 75%;"></div></div>
+                </div>
+                <div class="card">
+                    <i class="fas fa-battery-three-quarters"></i>
+                    <h3>Battery Level</h3>
+                    <p class="data">82%</p>
+                    <span class="label">Voltage: 4.2V</span>
+                </div>
+            </section>
+
+            <!-- Terminal Section -->
+            <section class="terminal-container">
+                <div class="terminal-header">
+                    <span><i class="fas fa-terminal"></i> Serial Monitor (SIM800L)</span>
+                </div>
+                <div class="terminal-body">
+                    <code>> AT+CPMS="SM"</code>
+                    <code>> OK</code>
+                    <code>> +CMTI: "SM", 1</code>
+                    <code class="cursor">> _</code>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #1e293b;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #94a3b8;
+    padding: 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+nav a:hover, nav a.active {
+    background: #334155;
+    color: #38bdf8;
+}
+
+/* Main Content Area */
+.main-content {
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 10px #22c55e;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: #1e293b;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+}
+
+.card i {
+    font-size: 1.5rem;
+    color: #38bdf8;
+    margin-bottom: 1rem;
+}
+
+.data {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.signal-bar {
+    background: #334155;
+    height: 6px;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.fill {
+    background: #38bdf8;
+    height: 100%;
+    border-radius: 3px;
+}
+
+/* Terminal Section */
+.terminal-container {
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.terminal-header {
+    background: #334155;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.terminal-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    color: #4ade80;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none; /* In a real project, you'd add a hamburger menu */
+    }
+}
