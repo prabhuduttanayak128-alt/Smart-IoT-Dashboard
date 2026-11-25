@@ -3,71 +3,355 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IoT Control Center</title>
+    <title>CoreIoT | Smart Dashboard</title>
+
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="logo">
+
+<div class="dashboard">
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <i class="fas fa-microchip"></i>
+            <span>Core<span class="cyan">IoT</span></span>
+            <button id="closeSidebar" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+
+        <nav>
+            <a href="#" class="nav-link active" data-page="dashboard">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="#" class="nav-link" data-page="gps">
+                <i class="fas fa-location-dot"></i> GPS Tracking
+            </a>
+            <a href="#" class="nav-link" data-page="gsm">
+                <i class="fas fa-signal"></i> GSM Monitoring
+            </a>
+            <a href="#" class="nav-link" data-page="power">
+                <i class="fas fa-battery-half"></i> Power Analytics
+            </a>
+            <a href="#" class="nav-link" data-page="sms">
+                <i class="fas fa-comment-sms"></i> SMS Control
+            </a>
+            <a href="#" class="nav-link" data-page="settings">
+                <i class="fas fa-gear"></i> Settings
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="device-mini">
                 <i class="fas fa-microchip"></i>
-                <span>CoreIoT</span>
+                <div>
+                    <strong>SIM800L-01</strong>
+                    <small>Firmware v2.4.1</small>
+                </div>
+                <span class="online-dot"></span>
             </div>
-            <nav>
-                <a href="#" class="active"><i class="fas fa-th-large"></i> Dashboard</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> GPS Tracking</a>
-                <a href="#"><i class="fas fa-signal"></i> GSM Status</a>
-                <a href="#"><i class="fas fa-cog"></i> Settings</a>
-            </nav>
-        </aside>
-        <!-- Main Content -->
-        <main class="main-content">
-            <header>
-                <h1>Device Overview</h1>
-                <div class="user-profile">
-                    <span class="status-indicator"></span>
-                    <p>System Online</p>
-                </div>
-            </header>
+            <p>COREIOT DASHBOARD v2.0</p>
+        </div>
 
-            <!-- Stats Grid -->
-            <section class="stats-grid">
-                <div class="card">
-                    <i class="fas fa-satellite"></i>
-                    <h3>GPS Coordinates</h3>
-                    <p class="data">20.2961° N, 85.8245° E</p>
-                    <span class="label">Updated 2m ago</span>
-                </div>
-                <div class="card">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <h3>GSM Signal</h3>
-                    <p class="data">-85 dBm</p>
-                    <div class="signal-bar"><div class="fill" style="width: 75%;"></div></div>
-                </div>
-                <div class="card">
-                    <i class="fas fa-battery-three-quarters"></i>
-                    <h3>Battery Level</h3>
-                    <p class="data">82%</p>
-                    <span class="label">Voltage: 4.2V</span>
-                </div>
-            </section>
+    </aside>
 
-            <!-- Terminal Section -->
-            <section class="terminal-container">
-                <div class="terminal-header">
-                    <span><i class="fas fa-terminal"></i> Serial Monitor (SIM800L)</span>
+    <!-- MAIN -->
+    <main class="main">
+
+        <header class="topbar">
+            <div class="heading">
+                <button class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+                <div>
+                    <h1 id="pageTitle">Device Overview</h1>
+                    <p id="pageSubtitle">Monitor your IoT device in one place</p>
                 </div>
-                <div class="terminal-body">
-                    <code>> AT+CPMS="SM"</code>
-                    <code>> OK</code>
-                    <code>> +CMTI: "SM", 1</code>
-                    <code class="cursor">> _</code>
+            </div>
+
+            <div class="top-actions">
+                <div class="status-pill">
+                    <span class="online-dot"></span> System Online
                 </div>
-            </section>
-        </main>
-    </div>
+                <div class="avatar"><i class="fas fa-user"></i></div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+
+            <div class="welcome">
+                <div>
+                    <h2>Welcome to CoreIoT <span>👋</span></h2>
+                    <p>Your device monitoring overview at a glance.</p>
+                </div>
+                <span class="demo-tag">DEMO ENVIRONMENT</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="icon blue"><i class="fas fa-satellite"></i></span>
+                        <span class="tag">GPS ACTIVE</span>
+                    </div>
+                    <p class="muted">GPS Coordinates</p>
+                    <h2 class="metric" id="gpsValue">20.2961° N</h2>
+                    <small id="gpsLongitude">85.8245° E</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="icon green"><i class="fas fa-signal"></i></span>
+                        <span class="tag">CONNECTED</span>
+                    </div>
+                    <p class="muted">GSM Signal</p>
+                    <h2 class="metric" id="signalValue">-85 dBm</h2>
+                    <div class="progress"><div id="signalBar" class="fill"></div></div>
+                    <small>Network: Airtel (Demo)</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="icon orange"><i class="fas fa-battery-three-quarters"></i></span>
+                        <span class="tag">POWER</span>
+                    </div>
+                    <p class="muted">Battery Level</p>
+                    <h2 class="metric" id="batteryValue">82%</h2>
+                    <div class="progress"><div id="batteryBar" class="fill battery-fill"></div></div>
+                    <small id="voltageValue">Voltage: 4.18V</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span class="icon purple"><i class="fas fa-network-wired"></i></span>
+                        <span class="tag">ONLINE</span>
+                    </div>
+                    <p class="muted">Network Status</p>
+                    <h2 class="metric">4G LTE</h2>
+                    <small>Latency: 48ms</small>
+                </div>
+
+            </div>
+
+            <div class="content-grid">
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><i class="fas fa-terminal cyan"></i> Serial Monitor</h3>
+                            <p>SIM800L communication logs</p>
+                        </div>
+                        <button class="small-btn" id="clearTerminal">Clear</button>
+                    </div>
+                    <div class="terminal" id="terminal"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3><i class="fas fa-microchip cyan"></i> Device Information</h3>
+                            <p>Current device status</p>
+                        </div>
+                    </div>
+
+                    <div class="info-row"><span>Module</span><strong>SIM800L</strong></div>
+                    <div class="info-row"><span>Device ID</span><strong>SIM800L-01</strong></div>
+                    <div class="info-row"><span>Firmware</span><strong>v2.4.1</strong></div>
+                    <div class="info-row"><span>Uptime</span><strong id="uptime">14h 22m</strong></div>
+                    <div class="info-row"><span>Connection</span><strong class="green-text">Online</strong></div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- GPS -->
+        <section class="page" id="gps">
+            <div class="page-intro">
+                <h2>GPS Tracking</h2>
+                <p>Monitor device location and coordinates.</p>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3><i class="fas fa-map-marked-alt cyan"></i> Device Location</h3>
+                        <p>Demo location: Bhubaneswar, Odisha</p>
+                    </div>
+                    <span class="tag">GPS ACTIVE</span>
+                </div>
+
+                <div id="map"></div>
+
+                <div class="location-info">
+                    <div><small>LATITUDE</small><strong id="mapLat">20.2961° N</strong></div>
+                    <div><small>LONGITUDE</small><strong id="mapLng">85.8245° E</strong></div>
+                    <div><small>ACCURACY</small><strong>± 4.2m (Demo)</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GSM -->
+        <section class="page" id="gsm">
+            <div class="page-intro">
+                <h2>GSM Monitoring</h2>
+                <p>Network connectivity and signal information.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card">
+                    <span class="icon green"><i class="fas fa-signal"></i></span>
+                    <p class="muted">Signal Strength</p>
+                    <h2 class="metric" id="gsmSignal">-85 dBm</h2>
+                    <div class="progress"><div id="gsmBar" class="fill"></div></div>
+                </div>
+
+                <div class="card">
+                    <span class="icon blue"><i class="fas fa-tower-cell"></i></span>
+                    <p class="muted">Network Operator</p>
+                    <h2 class="metric">Airtel</h2>
+                    <small>Demo operator</small>
+                </div>
+
+                <div class="card">
+                    <span class="icon purple"><i class="fas fa-wifi"></i></span>
+                    <p class="muted">Network Type</p>
+                    <h2 class="metric">4G LTE</h2>
+                    <small>Demo connection</small>
+                </div>
+
+                <div class="card">
+                    <span class="icon orange"><i class="fas fa-clock"></i></span>
+                    <p class="muted">Latency</p>
+                    <h2 class="metric">48 ms</h2>
+                    <small>Simulated response</small>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>Network Diagnostics</h3>
+                <div class="info-row"><span>SIM Status</span><strong class="green-text">READY</strong></div>
+                <div class="info-row"><span>Registration</span><strong>Registered</strong></div>
+                <div class="info-row"><span>Signal Quality</span><strong id="signalQuality">Good</strong></div>
+                <div class="info-row"><span>Module</span><strong>SIM800L</strong></div>
+            </div>
+        </section>
+
+        <!-- POWER -->
+        <section class="page" id="power">
+            <div class="page-intro">
+                <h2>Power Analytics</h2>
+                <p>Monitor battery level and power consumption.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="card">
+                    <span class="icon orange"><i class="fas fa-battery-three-quarters"></i></span>
+                    <p class="muted">Battery Level</p>
+                    <h2 class="metric" id="powerBattery">82%</h2>
+                </div>
+                <div class="card">
+                    <span class="icon blue"><i class="fas fa-bolt"></i></span>
+                    <p class="muted">Voltage</p>
+                    <h2 class="metric" id="powerVoltage">4.18V</h2>
+                </div>
+                <div class="card">
+                    <span class="icon green"><i class="fas fa-plug"></i></span>
+                    <p class="muted">Charging</p>
+                    <h2 class="metric">Active</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Battery Monitoring</h3>
+                        <p>Illustrative battery trend</p>
+                    </div>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="powerChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SMS -->
+        <section class="page" id="sms">
+            <div class="page-intro">
+                <h2>SMS Control</h2>
+                <p>Compose and simulate device messages.</p>
+            </div>
+
+            <div class="panel sms-panel">
+                <h3><i class="fas fa-paper-plane cyan"></i> Compose Message</h3>
+
+                <form id="smsForm">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="+91 9876543210" required pattern="[+]?[0-9 ]{10,16}">
+
+                    <label>Message</label>
+                    <textarea id="smsMessage" rows="4" maxlength="160" placeholder="Type your message..." required></textarea>
+
+                    <small id="charCount">0 / 160 characters</small>
+                    <button type="submit" class="primary-btn"><i class="fas fa-paper-plane"></i> Simulate Send</button>
+                </form>
+
+                <div id="smsFeedback" class="feedback" aria-live="polite"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Message History</h3>
+                <div id="smsHistory" class="empty-state">No messages sent yet.</div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="page" id="settings">
+            <div class="page-intro">
+                <h2>Device Settings</h2>
+                <p>Manage basic dashboard preferences.</p>
+            </div>
+
+            <div class="panel settings-panel">
+                <h3>General Configuration</h3>
+
+                <div class="setting-row">
+                    <div><strong>Device Name</strong><small>SIM800L-01</small></div>
+                    <span class="tag">ACTIVE</span>
+                </div>
+
+                <div class="setting-row">
+                    <div><strong>Auto Refresh</strong><small>Update simulated metrics automatically</small></div>
+                    <label class="switch"><input type="checkbox" id="autoRefresh" checked><span></span></label>
+                </div>
+
+                <div class="setting-row">
+                    <div><strong>Notifications</strong><small>Show dashboard notifications</small></div>
+                    <label class="switch"><input type="checkbox" id="notifications" checked><span></span></label>
+                </div>
+
+                <div class="setting-row">
+                    <div><strong>Data Mode</strong><small>Demonstration / simulated data</small></div>
+                    <span class="tag">SIMULATION</span>
+                </div>
+
+                <button class="primary-btn" id="resetDemo">Reset Demo Data</button>
+            </div>
+        </section>
+
+        <footer>© 2026 CoreIoT · Smart Device Monitoring Platform · Demo</footer>
+
+    </main>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
