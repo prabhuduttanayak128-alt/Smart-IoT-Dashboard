@@ -28,7 +28,7 @@ Visit the live dashboard to explore its interface and features.
 
 ## 🌐 Live Demo
 
-[Open CoreIoT Dashboard](PASTE_YOUR_GITHUB_PAGES_LINK_HERE)
+[Open CoreIoT Dashboard](https://prabhuduttanayak128-alt.github.io/Smart-IoT-Dashboard/)
 
 ## 💻 Run Locally
 
