@@ -32,7 +32,7 @@ A modern, responsive web-based IoT monitoring dashboard designed to visualize de
 ![GPS Tracking](https://github.com/prabhuduttanayak128-alt/Smart-IoT-Dashboard/blob/main/Screenshot%202026-11-25%20231651.png)
 
 ### Power Analytics
-![Power Analytics](screenshots/power.png)
+![Power Analytics](https://github.com/prabhuduttanayak128-alt/Smart-IoT-Dashboard/blob/main/Screenshot%202026-11-25%20231747.png)
 
 
 Visit the live dashboard to explore its interface and features.
