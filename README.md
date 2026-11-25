@@ -26,16 +26,14 @@ A modern, responsive web-based IoT monitoring dashboard designed to visualize de
 ## 📸 Project Screenshots
 
 ### Dashboard
-![Dashboard](<img width="1838" height="1016" alt="Screenshot 2026-11-25 231633" src="https://github.com/user-attachments/assets/33a734d8-8c42-43e5-a665-964bd4dfc61f" />
-)
+![Dashboard](screenshots/dashboard.png)
 
 ### GPS Tracking
-![GPS Tracking](<img width="1848" height="1016" alt="Screenshot 2026-11-25 231651" src="https://github.com/user-attachments/assets/c0bf9229-4fa4-45b8-81a3-0653b230a29a" />
-)
+![GPS Tracking](screenshots/gps.png)
 
 ### Power Analytics
-![Power Analytics](<img width="1838" height="1016" alt="Screenshot 2026-11-25 231747" src="https://github.com/user-attachments/assets/1b9b1ef2-755a-4a66-af1b-952385e44fa1" />
-)
+![Power Analytics](screenshots/power.png)
+
 
 Visit the live dashboard to explore its interface and features.
 
