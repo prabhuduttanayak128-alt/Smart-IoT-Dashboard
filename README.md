@@ -26,7 +26,7 @@ A modern, responsive web-based IoT monitoring dashboard designed to visualize de
 ## 📸 Project Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](https://github.com/prabhuduttanayak128-alt/Smart-IoT-Dashboard/blob/main/Screenshot%202026-11-25%20231633.png)
 
 ### GPS Tracking
 ![GPS Tracking](screenshots/gps.png)
